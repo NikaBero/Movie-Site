@@ -38,69 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  const movies = [
-    {
-      "title": "Inception",
-      "description": "A skilled thief enters dreams to steal secrets.",
-      "poster": "Images/Inception.png",
-      "rating": 4.8,
-      "reviews": [
-        "Mind-bending and thrilling!",
-        "A masterpiece of modern cinema."
-      ]
-    },
-    {
-      "title": "Interstellar",
-      "description": "Astronauts travel through a wormhole in space.",
-      "poster": "Images/Interstellar.png",
-      "rating": 4.7,
-      "reviews": [
-        "Visually stunning and emotional.",
-        "A journey through space and time."
-      ]
-    },
-    {
-      "title": "The Matrix",
-      "description": "A hacker discovers reality is a simulation.",
-      "poster": "Images/The Matrix.png",
-      "rating": 4.9,
-      "reviews": [
-        "Revolutionary sci-fi action.",
-        "Philosophical and exciting."
-      ]
-    },
-    {
-      "title": "Avatar",
-      "description": "A marine explores an alien world called Pandora.",
-      "poster": "Images/Avatar.png",
-      "rating": 4.5,
-      "reviews": [
-        "Beautiful world-building.",
-        "A visual spectacle."
-      ]
-    },
-    {
-      "title": "Joker",
-      "description": "A failed comedian turns to madness.",
-      "poster": "Images/Joker.png",
-      "rating": 4.6,
-      "reviews": [
-        "Dark and gripping.",
-        "Outstanding performance."
-      ]
-    },
-    {
-      "title": "Tenet",
-      "description": "A spy manipulates time to prevent catastrophe.",
-      "poster": "Images/Tenet.png",
-      "rating": 4.3,
-      "reviews": [
-        "Complex and thrilling.",
-        "Requires multiple viewings."
-      ]
-    }
-  ];
-
+  let movies = [];
 
   const movieSection = document.getElementById('movie-section');
   const searchInput = document.getElementById('search-input');
@@ -151,6 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let filtered = filterMovies();
     let sorted = sortMovies(filtered);
     renderMovies(sorted);
+    addMovieCardClickListeners(sorted);
   }
 
   searchInput.addEventListener('input', updateMovies);
@@ -208,6 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
       card.addEventListener('click', () => {
         openModal(movieList[index]);
       });
+
       card.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
@@ -217,14 +157,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  const originalRenderMovies = renderMovies;
-  renderMovies = function(movieList) {
-    originalRenderMovies(movieList);
-    addMovieCardClickListeners(movieList);
-  };
-
-  renderMovies(movies);
-
+  fetch('movies.json')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      movies = data;
+      updateMovies();
+    })
+    .catch(error => {
+      console.error('There was a problem with the fetch operation:', error);
+    });
 
   const darkModeToggle = document.getElementById('dark-mode-toggle');
   darkModeToggle.addEventListener('click', () => {
