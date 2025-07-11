@@ -156,15 +156,12 @@ document.addEventListener('DOMContentLoaded', () => {
   searchInput.addEventListener('input', updateMovies);
   sortSelect.addEventListener('change', updateMovies);
 
-  // Modal element
   let modal = null;
 
   function openModal(movie) {
-    // Create modal container
     modal = document.createElement('div');
     modal.className = 'modal';
 
-    // Modal content HTML
     modal.innerHTML = `
       <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
         <button class="modal-close" aria-label="Close modal">&times;</button>
@@ -178,20 +175,16 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
     `;
 
-    // Append modal to body
     document.body.appendChild(modal);
 
-    // Close modal on close button click
     modal.querySelector('.modal-close').addEventListener('click', closeModal);
 
-    // Close modal on outside click
     modal.addEventListener('click', (e) => {
       if (e.target === modal) {
         closeModal();
       }
     });
 
-    // Close modal on Escape key
     document.addEventListener('keydown', handleEscape);
   }
 
@@ -209,14 +202,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Add click event to movie cards to open modal
   function addMovieCardClickListeners(movieList) {
     const cards = document.querySelectorAll('.movie-card');
     cards.forEach((card, index) => {
       card.addEventListener('click', () => {
         openModal(movieList[index]);
       });
-      // Also add keyboard accessibility: open modal on Enter key
       card.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
@@ -226,18 +217,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Update renderMovies to add click listeners after rendering
   const originalRenderMovies = renderMovies;
   renderMovies = function(movieList) {
     originalRenderMovies(movieList);
     addMovieCardClickListeners(movieList);
   };
 
-  // Initial render
   renderMovies(movies);
 
 
-  // Dark mode toggle
   const darkModeToggle = document.getElementById('dark-mode-toggle');
   darkModeToggle.addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');
