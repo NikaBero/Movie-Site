@@ -1,0 +1,34 @@
+{
+  "movies": [
+    {
+      "title": "Inception",
+      "description": "A skilled thief enters dreams to steal secrets.",
+      "poster": "https://via.placeholder.com/300x400?text=Inception"
+    },
+    {
+      "title": "Interstellar",
+      "description": "Astronauts travel through a wormhole in space.",
+      "poster": "https://via.placeholder.com/300x400?text=Interstellar"
+    },
+    {
+      "title": "The Matrix",
+      "description": "A hacker discovers reality is a simulation.",
+      "poster": "https://via.placeholder.com/300x400?text=The+Matrix"
+    },
+    {
+      "title": "Avatar",
+      "description": "A marine explores an alien world called Pandora.",
+      "poster": "https://via.placeholder.com/300x400?text=Avatar"
+    },
+    {
+      "title": "Joker",
+      "description": "A failed comedian turns to madness.",
+      "poster": "https://via.placeholder.com/300x400?text=Joker"
+    },
+    {
+      "title": "Tenet",
+      "description": "A spy manipulates time to prevent catastrophe.",
+      "poster": "https://via.placeholder.com/300x400?text=Tenet"
+    }
+  ]
+}
